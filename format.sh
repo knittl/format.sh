@@ -38,7 +38,7 @@ _sgr_attr() { # _sgr_attr attribute
 	esac
 }
 
-_sgr() { printf '\033[%sm' "$(_sgr_attr fg; for attr; do _sgr_attr "$attr"; done | paste -sd ';')"; }
+_sgr() { printf '\033[%sm' "$(_sgr_attr fg; for attr; do _sgr_attr "$attr"; done | while read -r code; do printf ';%s' "$code"; done)"; }
 _sgr_reset="$(_sgr reset)" # cache frequently-used, constant value
 _spread() ( set -f && IFS=', ' && "$1" ${2+$2} )
 
