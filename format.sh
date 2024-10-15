@@ -13,7 +13,7 @@ _sgr_attr() { # _sgr_attr attribute
 		fg|foreground) _sgr_bgfg=3 ;;
 		bg|background) _sgr_bgfg=4 ;;
 		# raw SGR codes:
-		[0-9]|[0-9][0-9]) printf ';%s%s' "$_sgr_not" "$1" ;;
+		[0-9]|[0-9][0-9]) printf ';%s%s' "$_sgr_not" "$1"; _sgr_not= ;;
 		# formats:
 		reset)                        _sgr_attr 0 ;;
 		strong|b|bold|bright|intense) _sgr_attr 1 ;;
