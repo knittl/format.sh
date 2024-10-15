@@ -9,6 +9,7 @@ _sgr_attr() { # _sgr_attr attribute
 	case "$1" in
 		# disable next SGR:
 		not) _sgr_not=2 ;; # 2X
+		not-*) _sgr_not=2 _sgr_attr "${1#not-}" ;;
 		# select foreground/background:
 		fg|foreground) _sgr_bgfg=3 ;;
 		bg|background) _sgr_bgfg=4 ;;
