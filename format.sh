@@ -4,16 +4,16 @@
 # a bunch of functions which should simplify working with ANSI SGR escape sequences
 # it's not efficient, but simple to use
 
-_sgr_color() { printf '%s%s\n' "$_sgr_bgfg" "$1"; }
+_sgr_color() { printf ';%s%s' "$_sgr_bgfg" "$1"; }
 _sgr_attr() { # _sgr_attr attribute
 	case "$1" in
 		# disable next SGR:
-		not) printf 2 ;; # 2X
+		not) _sgr_not=2 ;; # 2X
 		# select foreground/background:
 		fg|foreground) _sgr_bgfg=3 ;;
 		bg|background) _sgr_bgfg=4 ;;
 		# raw SGR codes:
-		[0-9]|[0-9][0-9]) printf '%s\n' "$1" ;;
+		[0-9]|[0-9][0-9]) printf ';%s%s' "$_sgr_not" "$1" ;;
 		# formats:
 		reset)                        _sgr_attr 0 ;;
 		strong|b|bold|bright|intense) _sgr_attr 1 ;;
@@ -38,7 +38,7 @@ _sgr_attr() { # _sgr_attr attribute
 	esac
 }
 
-_sgr() { printf '\033[%sm' "$(_sgr_attr fg; for attr; do _sgr_attr "$attr"; done | while read -r code; do printf ';%s' "$code"; done)"; }
+_sgr() { printf '\033[%sm' "$(_sgr_attr fg; for attr; do _sgr_attr "$attr"; done)"; }
 _sgr_reset="$(_sgr reset)" # cache frequently-used, constant value
 _spread() ( set -f && IFS=', ' && "$1" ${2+$2} )
 
