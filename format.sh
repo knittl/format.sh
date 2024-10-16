@@ -13,6 +13,8 @@ _sgr_attr() { # _sgr_attr attribute
 		# select foreground/background:
 		fg|foreground) _sgr_bgfg=3 ;;
 		bg|background) _sgr_bgfg=4 ;;
+		fg-*) _sgr_bgfg=3 _sgr_attr "${1#fg-}" ;;
+		bg-*) _sgr_bgfg=4 _sgr_attr "${1#bg-}" ;;
 		# raw SGR codes:
 		[0-9]|[0-9][0-9]) printf ';%s%s' "$_sgr_not" "$1"; _sgr_not= ;;
 		# formats:
