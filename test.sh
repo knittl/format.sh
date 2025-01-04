@@ -13,16 +13,16 @@ assert() {
 }
 
 assert_fmt() {
-	assert "$(printf "$1")" "$2"
+	assert "$(printf "$1" "$3")" "$(fmt "$2" "$3")"
 }
 
-assert_fmt '\033[;31mxxx\033[;0m\n' "$(fmt red xxx)"
-assert_fmt '\033[;31;1mxxx\033[;0m\n' "$(fmt red,bold xxx)"
-assert_fmt '\033[;1;31mxxx\033[;0m\n' "$(fmt bold,red xxx)"
-assert_fmt '\033[;41mxxx\033[;0m\n' "$(fmt bg,red xxx)"
-assert_fmt '\033[;21mxxx\033[;0m\n' "$(fmt not,bold xxx)"
-assert_fmt '\033[;21;31mxxx\033[;0m\n' "$(fmt not,bold,red xxx)"
-assert_fmt '\033[;23;4mxxx\033[;0m\n' "$(fmt not,em,u xxx)"
-assert_fmt '\033[;23;4mxxx\033[;0m\n' "$(fmt not-em,u xxx)"
-assert_fmt '\033[;41mxxx\033[;0m\n' "$(fmt bg-red xxx)"
-assert_fmt '\033[;31mxxx\033[;0m\n' "$(fmt fg-red xxx)"
+assert_fmt '\033[;31m%s\033[;0m\n' red xxx
+assert_fmt '\033[;31;1m%s\033[;0m\n' red,bold xxx
+assert_fmt '\033[;1;31m%s\033[;0m\n' bold,red xxx
+assert_fmt '\033[;41m%s\033[;0m\n' bg,red xxx
+assert_fmt '\033[;21m%s\033[;0m\n' not,bold xxx
+assert_fmt '\033[;21;31m%s\033[;0m\n' not,bold,red xxx
+assert_fmt '\033[;23;4m%s\033[;0m\n' not,em,u xxx
+assert_fmt '\033[;23;4m%s\033[;0m\n' not-em,u xxx
+assert_fmt '\033[;41m%s\033[;0m\n' bg-red xxx
+assert_fmt '\033[;31m%s\033[;0m\n' fg-red xxx
