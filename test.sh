@@ -26,3 +26,6 @@ assert_fmt '\033[;23;4m%s\033[;0m\n' not,em,u xxx
 assert_fmt '\033[;23;4m%s\033[;0m\n' not-em,u xxx
 assert_fmt '\033[;41m%s\033[;0m\n' bg-red xxx
 assert_fmt '\033[;31m%s\033[;0m\n' fg-red xxx
+
+assert "$(printf '\033[;31mone two\033[;0m\n')" "$(fmt fg-red one two)"
+assert "$(printf '\033[;31mone_two\033[;0m\n')" "$(IFS=_ fmt fg-red one two)"
